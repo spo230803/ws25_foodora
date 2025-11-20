@@ -1,0 +1,204 @@
+@startuml
+' Spengerbite Domain Model
+' skin settings for better readability
+skinparam linetype ortho
+skinparam handwritten false
+skinparam classAttributeIconSize 0
+hide empty members
+
+' =========================================
+' Styling (Using <style>)
+' =========================================
+' Neutral grey class color
+skinparam classBackgroundColor #F0F0F0
+skinparam classBorderColor #555555
+
+' --- NEW Style Definitions ---
+<style>
+classDiagram {
+  ' Default for all stereotype spots
+  .stereotype {
+    FontColor #555555
+  }
+
+  ' <<Entity>> -> (E) Green
+  .Entity {
+    charSpot {
+        Character E
+        BackgroundColor #EAF7E4
+        BorderColor #508D3E
+    }
+  }
+
+  ' <<ValueObject>> -> (V) Blue
+  .ValueObject {
+    charSpot {
+        Character V
+        BackgroundColor #D4E6F1
+        BorderColor #2196F3
+    }
+  }
+
+  ' <<Enum>> -> (E) Red
+  .Enum {
+    charSpot {
+        Character E
+        BackgroundColor #FDEDED
+        BorderColor #C00000
+    }
+  }
+
+  ' <<RichType>> -> (R) Yellow
+  .RichType {
+    charSpot {
+        Character R
+        BackgroundColor #FFF9C4
+        BorderColor #FFC107
+    }
+  }
+}
+</style>
+
+
+' =========================================
+' Shared Value Objects & Rich Types
+' =========================================
+class Address <<ValueObject>> {
+    street: string
+    city: string
+    postalCode: string
+}
+
+class Email <<RichType>> {
+    value: string
+}
+
+class Phone <<RichType>> {
+    value: string
+}
+
+
+' =========================================
+' User Management Classes
+' =========================================
+abstract class User <<Entity>> {
+    fullName: string
+    email: Email
+}
+
+class Customer <<Entity>> extends User {
+    phone: Phone
+    paymentMethods: List<PaymentMethod>
+}
+
+class RestaurantOwner <<Entity>> extends User {
+    restaurant: Restaurant
+}
+
+abstract class PaymentMethod <<Entity>> {
+    alias: string
+}
+
+class CreditCard <<Entity>> extends PaymentMethod {
+    number: string
+}
+
+class PayPal <<Entity>> extends PaymentMethod {
+    email: Email
+}
+
+
+' =========================================
+' Order Classes
+' =========================================
+class Order <<Entity>> {
+    status: OrderStatus
+    customer: Customer
+    restaurant: Restaurant
+    orderItems: List<OrderItem>
+}
+
+class OrderItem <<Entity>> {
+    name: string
+    price: decimal
+    quantity: int
+    order: Order
+    menuItem: MenuItem
+}
+
+enum OrderStatus <<Enum>> {
+    Submitted <<S>>
+}
+
+
+' =========================================
+' Restaurant Classes
+' =========================================
+class Restaurant <<Entity>> {
+    name: string
+    type: CuisineType
+    menuItems: List<MenuItem>
+}
+
+class MenuItem <<Entity>> {
+    name: string
+    description: string
+    price: decimal
+}
+
+enum CuisineType <<Enum>> {
+    Asian
+}
+
+
+' =========================================
+' Delivery Classes
+' =========================================
+class Delivery <<Entity>> {
+    status: DeliveryStatus
+    order: Order
+    courier: Courier
+}
+
+enum DeliveryStatus <<Enum>> {
+    Delivered
+}
+
+
+' =========================================
+' Courier Classes
+' =========================================
+class Courier <<Entity>> {
+    name: string
+    phone: Phone
+    vehicleType: VehicleType
+}
+
+enum VehicleType <<Enum>> {
+    Bike <<B>>
+}
+
+
+' =========================================
+' Relationships
+' =========================================
+
+' User Management
+Customer *-- PaymentMethod
+
+' Restaurant
+Restaurant *-- MenuItem
+Restaurant *-- Address
+
+' Order
+Order <-- OrderItem
+Order *-- Address
+
+Order --> Customer
+Order --> Restaurant
+Delivery --> Order
+Delivery --> Courier
+OrderItem --> MenuItem
+
+Owner --> Restaurant
+@enduml
