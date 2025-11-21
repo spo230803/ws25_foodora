@@ -9,33 +9,32 @@ import lombok.Getter;
 import lombok.ToString;
 
 @Getter
-@ToString(callSuper=true)
+@ToString
 @Entity
 @Table(name = "menu_item")
-public class MenuItem extends Owner
-{
+public class MenuItem extends Owner{
 
-    @Column(name = "name", nullable = false,length = 100)
-    @NotBlank(message = "Name kann nicht Lehere sein")
+    @Column(name = "name", nullable = false, length = 100)
+    @NotBlank(message = "Name kann nicht leer sein")
     @Size(min = 3, max = 100)
     private String name;
 
-    @Column(name = "description", nullable = true,length = 255)
+    @Column(name = "description", length = 255)
     @Size(max = 255)
     private String description;
 
     @Column(name = "price", nullable = false)
-    @Min(value = 0, message = "Price muss > 0")
+    @Min(value = 0, message = "Price muss >= 0")
     private float price;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "FK_resturnat")
-    private Restuarant restuarant;
+    @JoinColumn(name = "fk_restaurant")
+    private Restaurant restaurant;
 
+    // JPA
     public MenuItem() {}
 
-    public void setRestuarant(Restuarant restuarant)
-    {
-        this.restuarant = restuarant;
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
-}//end Class
+}//end MenuItem

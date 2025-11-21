@@ -1,6 +1,5 @@
 package at.spengergasse.foodora.model.resturant;
 
-import at.spengergasse.foodora.model.BaseEntity;
 import at.spengergasse.foodora.model.Enum.CusineType;
 import at.spengergasse.foodora.model.valueObject.Address;
 import jakarta.persistence.*;
@@ -9,7 +8,6 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,7 +15,7 @@ import java.util.Set;
 @ToString(callSuper=true)
 @Entity
 @Table(name = "resturant")
-public class Restuarant extends Owner
+public class Restaurant extends Owner
 {
     @Column(name = "name", nullable = false,length = 100)
     @NotBlank(message = "Name kann nicht Lehere sein")
@@ -25,6 +23,7 @@ public class Restuarant extends Owner
     private String name;
 
     @Column(name = "cusineType", nullable = false)
+    @Enumerated(EnumType.STRING)
     private CusineType cusineType;
 
     @OneToMany(mappedBy = "restuarant", cascade = CascadeType.ALL, orphanRemoval = false )
@@ -36,21 +35,21 @@ public class Restuarant extends Owner
 
 
     //JPA
-    public Restuarant() {}
+    public Restaurant() {}
 
     public void addMenuItem(MenuItem menuItem)//Von prof. SLM
     {
         if(menuItem == null) return;
 
         menuItems.add(menuItem);
-        menuItem.setRestuarant(this);
+        menuItem.setRestaurant(this);
     }//addMenuItem
 
     public void removeMenuItem(MenuItem menuItem)//Von prof. SLM
     {
         if(menuItem == null) return;
         menuItems.remove(menuItem);
-        menuItem.setRestuarant(null);
+        menuItem.setRestaurant(null);
     }
 
 }//end class

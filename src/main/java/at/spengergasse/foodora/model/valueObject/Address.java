@@ -3,15 +3,23 @@
 package at.spengergasse.foodora.model.valueObject;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
-@AllArgsConstructor
 @ToString
-public class Address
-{
-    private String street;
-    private String city;
-    private String postalCode;
+@EqualsAndHashCode
+@AllArgsConstructor
+public class Address {
+
+    private final String street;
+    private final String city;
+    private final String postalCode;
+
+    protected Address() { // per JPA
+        this.street = null;
+        this.city = null;
+        this.postalCode = null;
+    }
 }//end Address

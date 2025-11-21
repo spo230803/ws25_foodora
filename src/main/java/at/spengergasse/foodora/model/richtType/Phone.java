@@ -2,25 +2,23 @@ package at.spengergasse.foodora.model.richtType;
 
 import at.spengergasse.foodora.validation.StringGuard;
 import jakarta.persistence.Embeddable;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.EqualsAndHashCode;
 
 @Getter
 @ToString
+@EqualsAndHashCode
 @Embeddable
-public class Phone
-{
-    private String value;
+public class Phone {
 
-    public  Phone(String value)
-    {
-        try {
-            value = StringGuard.stringMinMax(value,0,50,null);
-            this.value = value;
-        }catch (Throwable e){
-            throw e;
-        }
+    private final String value;
 
+    protected Phone() {
+        this.value = null; // per JPA
     }
-}//end Phone
+
+    public Phone(String value) {
+        this.value = StringGuard.stringMinMax(value, 0, 50, null);
+    }
+}//Phone
