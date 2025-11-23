@@ -1,18 +1,21 @@
 package at.spengergasse.foodora.model.resturant;
 
 
+import at.spengergasse.foodora.model.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @ToString
 @Entity
 @Table(name = "menu_item")
-public class MenuItem extends Owner{
+@Setter
+public class MenuItem extends BaseEntity {
 
     @Column(name = "name", nullable = false, length = 100)
     @NotBlank(message = "Name kann nicht leer sein")
@@ -28,7 +31,7 @@ public class MenuItem extends Owner{
     private float price;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_restaurant")
+    //@JoinColumn(name = "fk_restaurant")
     private Restaurant restaurant;
 
     // JPA

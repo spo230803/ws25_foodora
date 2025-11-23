@@ -1,21 +1,27 @@
 package at.spengergasse.foodora.model.resturant;
 
+import at.spengergasse.foodora.model.BaseEntity;
 import at.spengergasse.foodora.model.Enum.CusineType;
 import at.spengergasse.foodora.model.valueObject.Address;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
 @ToString(callSuper=true)
 @Entity
 @Table(name = "resturant")
-public class Restaurant extends Owner
+@Setter
+public class Restaurant extends BaseEntity
 {
     @Column(name = "name", nullable = false,length = 100)
     @NotBlank(message = "Name kann nicht Lehere sein")
@@ -26,8 +32,13 @@ public class Restaurant extends Owner
     @Enumerated(EnumType.STRING)
     private CusineType cusineType;
 
-    @OneToMany(mappedBy = "restuarant", cascade = CascadeType.ALL, orphanRemoval = false )
-    private Set<MenuItem> menuItems = new HashSet<>(); //Von prof. SLM
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY )
+   /* @JoinTable(
+            name = "menu_item",
+            joinColumns = @JoinColumn(name = "restuarant_id"),
+            inverseJoinColumns = @JoinColumn(name = "menu_item_id")
+    )*/
+    private List<MenuItem> menuItems = new ArrayList<>();
 
     @Embedded
     @Column(name = "address", nullable = false)

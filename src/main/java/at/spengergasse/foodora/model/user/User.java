@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.List;
+
 @Getter
 @ToString(callSuper = true)
 @Entity
@@ -22,4 +24,5 @@ public abstract class User extends BaseEntity {
 
     @Embedded
     private Email email;
+
 }//end user

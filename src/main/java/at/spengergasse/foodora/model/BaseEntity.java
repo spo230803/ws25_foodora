@@ -4,13 +4,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Objects;
 
 @MappedSuperclass
 @Getter
+@Setter
 public class BaseEntity
 {
     @Id
@@ -23,7 +26,7 @@ public class BaseEntity
         if(o == null || getClass() != o.getClass()){return  false;}
         BaseEntity other = (BaseEntity)o;
 
-        if(!istTransient()) {return false;}
+        if(istTransient()) {return false;}
         return Objects.equals(id, other.id);
     }//equals
 

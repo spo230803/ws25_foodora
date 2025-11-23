@@ -1,5 +1,6 @@
 package at.spengergasse.foodora.model.user;
 
+import at.spengergasse.foodora.model.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.ToString;
@@ -8,9 +9,8 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
-@Table(name = "payment_method")
-public abstract class PaymentMethod extends User
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING )
+public abstract class PaymentMethod extends BaseEntity
 {
     @Column(name = "alias", nullable = false, length = 100)
     private String alias;
@@ -22,4 +22,5 @@ public abstract class PaymentMethod extends User
     public void setCustomer(Customer customer){
         this.customer = customer;
     }
+
 }//end PayamentMethod

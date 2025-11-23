@@ -22,7 +22,7 @@ public class Courier extends BaseEntity
     @Embedded
     private Phone phone;
 
-    @Column(name = "veihicleType", nullable = false, length = 50)
+    @Column(name = "veihicleType", nullable = true, length = 50)
     @Enumerated(EnumType.STRING)
     private VeihicleType veihicleType;
 
