@@ -20,7 +20,7 @@ import java.util.Set;
 @ToString(callSuper=true)
 @Entity
 @Table(name = "resturant")
-@Setter
+
 public class Restaurant extends BaseEntity
 {
     @Column(name = "name", nullable = false,length = 100)
@@ -33,11 +33,6 @@ public class Restaurant extends BaseEntity
     private CusineType cusineType;
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY )
-   /* @JoinTable(
-            name = "menu_item",
-            joinColumns = @JoinColumn(name = "restuarant_id"),
-            inverseJoinColumns = @JoinColumn(name = "menu_item_id")
-    )*/
     private List<MenuItem> menuItems = new ArrayList<>();
 
     @Embedded
@@ -47,6 +42,12 @@ public class Restaurant extends BaseEntity
 
     //JPA
     public Restaurant() {}
+
+    public Restaurant(String name, CusineType cusineType,  Address address) {
+        this.name = name;
+        this.cusineType = cusineType;
+        this.address = address;
+    }
 
     public void addMenuItem(MenuItem menuItem)//Von prof. SLM
     {

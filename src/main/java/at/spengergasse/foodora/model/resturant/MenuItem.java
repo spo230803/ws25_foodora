@@ -14,7 +14,6 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "menu_item")
-@Setter
 public class MenuItem extends BaseEntity {
 
     @Column(name = "name", nullable = false, length = 100)
@@ -36,6 +35,10 @@ public class MenuItem extends BaseEntity {
 
     // JPA
     public MenuItem() {}
+
+    public MenuItem(String name) {
+        this.name = name;
+    }
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;

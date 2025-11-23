@@ -26,4 +26,12 @@ public class Courier extends BaseEntity
     @Enumerated(EnumType.STRING)
     private VeihicleType veihicleType;
 
+    //JPA
+    protected  Courier()    {}
+    public Courier(String name, Phone phone)
+    {
+        this.name = name;
+        this.phone = phone;
+    }
+
 }//Courier

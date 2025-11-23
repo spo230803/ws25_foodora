@@ -30,14 +30,12 @@ public class RestaurantTest
     @Test
     void testAddAndRemoveMenuItem() {
         // Creo un ristorante
-        Restaurant restaurant = new Restaurant();
-        restaurant.setName("La Bella Italia");
-        restaurant.setCusineType(CusineType.ASIAN);
-        restaurant.setAddress(new Address("Via Roma",   "Rome","00100"));
+        Address adds = new  Address("Via Roma",   "Rome","00100");
+        Restaurant restaurant = new Restaurant("La Bella Italia",CusineType.ASIAN, adds );
+
 
         // Creo un MenuItem
-        MenuItem pizza = new MenuItem();
-        pizza.setName("Pizza Margherita");
+        MenuItem pizza = new MenuItem("Pizza Margherita");
 
         // Aggiungo MenuItem al ristorante
         restaurant.addMenuItem(pizza);

@@ -13,7 +13,6 @@ import java.util.Objects;
 
 @MappedSuperclass
 @Getter
-@Setter
 public class BaseEntity
 {
     @Id
@@ -40,4 +39,9 @@ public class BaseEntity
         return  String.valueOf(this.id);
     }
 
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(id);
+    }
 }//end Class
