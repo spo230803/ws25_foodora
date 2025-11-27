@@ -1,6 +1,7 @@
 package at.spengergasse.foodora.model.richtType;
 
 import at.spengergasse.foodora.validation.StringGuard;
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.ToString;
@@ -12,6 +13,7 @@ import lombok.EqualsAndHashCode;
 @Embeddable
 public class Phone {
 
+    @Column(name = "phone_value")
     private final String value;
 
     protected Phone() {

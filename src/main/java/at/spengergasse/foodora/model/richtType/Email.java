@@ -1,6 +1,7 @@
 package at.spengergasse.foodora.model.richtType;
 
 import at.spengergasse.foodora.validation.StringGuard;
+import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -8,7 +9,10 @@ import lombok.ToString;
 @ToString
 public class Email
 {
+    @Column(name = "email_value")
     private String email;
+
+    protected Email(){}
 
     public Email(String email)
     {

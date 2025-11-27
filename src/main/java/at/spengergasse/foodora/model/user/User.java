@@ -23,6 +23,7 @@ public abstract class User extends BaseEntity {
     private String fullName;
 
     @Embedded
+    @AttributeOverride(name = "email", column = @Column(name = "email", nullable = false))
     private Email email;
 
 }//end user

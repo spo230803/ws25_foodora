@@ -21,8 +21,10 @@ public class Delivery extends BaseEntity {
     @JoinColumn(name = "fk_order", nullable = false, unique = true)
     private Order order;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_courier")
+    @ManyToOne
+    @JoinColumn(name = "fk_courier", nullable = false)
     private Courier courier;
 
+    //JPA
+    public Delivery() {}
 }//end Delivery
