@@ -15,6 +15,6 @@ public class CustomerTest
     @Test
     public void newRegisterCustomerTest()
     {
-        #custumerRepository.registerNewUser()
+        //custumerRepository.registerNewUser();
     }
 }//end Class
