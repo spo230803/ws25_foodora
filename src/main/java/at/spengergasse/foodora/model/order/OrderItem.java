@@ -26,14 +26,14 @@ public class OrderItem extends BaseEntity {
 
     @Column(name = "price", nullable = false)
     @Min(value = 0, message = "Price muss >= 0")
-    private float price;
+    private int price; // in Cent
 
     @Column(name = "quantity", nullable = false)
     @Min(value = 1, message = "Quantity muss >= 1")
     private int quantity;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "fk_order")
+    @ManyToOne(fetch = FetchType.LAZY,  optional = false)
+    @JoinColumn(name = "fk_order", nullable = false)
     private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -42,7 +42,7 @@ public class OrderItem extends BaseEntity {
 
 
     //JPA
-    public OrderItem() {}
+    protected OrderItem() {}
 
     public void setOrder(Order order) {
         if(order == null) return;

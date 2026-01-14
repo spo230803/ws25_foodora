@@ -19,6 +19,9 @@ import java.util.List;
 @Table(name = "orders") // Evita parola riservata
 public class Order extends BaseEntity {
 
+    @Column(unique = true)
+    private String invoceNumber; //Nur für test
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private OrderStatus status;
@@ -38,10 +41,22 @@ public class Order extends BaseEntity {
     private Address address;
 
     // JPA
-    public Order() {}
+    protected Order() {}
+
+
+    //Bussines Controlle
+    public Order(OrderStatus status, Customer customer, Restaurant restaurant, List<OrderItem> orderItems, Address address) {
+        this.status = status;
+        this.customer = customer;
+        this.restaurant = restaurant;
+        this.orderItems = orderItems;
+        this.address = address;
+    }
 
     public void addOrderItem(OrderItem orderItem) {
         if (orderItem == null) return;
+        if(orderItems.contains(orderItem)) return; //Se oggetto ü
+
         orderItems.add(orderItem);
         orderItem.setOrder(this);
     }
